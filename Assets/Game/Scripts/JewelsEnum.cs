@@ -1,4 +1,7 @@
-﻿public enum JewelsEnum
+﻿/// <summary>
+/// Перечисление типов фишек
+/// </summary>
+public enum JewelsEnum
 {
     None,
     Black,

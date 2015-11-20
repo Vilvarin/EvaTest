@@ -2,19 +2,42 @@
 using System;
 using System.Collections;
 
+/// <summary>
+/// Класс фишки\тайла игрового поля
+/// </summary>
 public class Piece: MonoBehaviour
 {
+    /// <summary>
+    /// Координаты фишки на игровом поле
+    /// </summary>
     public Vector2 coor;
-    public JewelsEnum jewel;
+
+    private JewelsEnum _jewel;
+    /// <summary>
+    /// Тип фишки
+    /// </summary>
+    public JewelsEnum Jewel
+    {
+        get
+        {
+            return _jewel;
+        }
+
+        set
+        {
+            _jewel = value;
+            UpdateJewel();
+        }
+    }
 
     public event EventHandler<PiecesEventArgs> clickAction = delegate { };
 
     SpriteRenderer _render;
 
-    void Start()
+    void Awake()
     {
         _render = GetComponent<SpriteRenderer>();
-        UpdateJewel();
+        _render.sprite = null;
     }
 
     void OnMouseDown()
@@ -22,24 +45,38 @@ public class Piece: MonoBehaviour
         clickAction(this, new PiecesEventArgs(this));
     }
 
+    /// <summary>
+    /// Выделяет фишку при нажатии
+    /// </summary>
     public void AddSelected()
     {
         _render.color = new Color(_render.color.r, _render.color.g, _render.color.b, 0.5f);
     }
 
+    /// <summary>
+    /// убирает выделение
+    /// </summary>
     public void RemoveSelected()
     {
         _render.color = new Color(_render.color.r, _render.color.g, _render.color.b, 1f);
     }
 
-    public void SetRandomPiece()
+    /// <summary>
+    /// Задает случайный цвет
+    /// </summary>
+    /// <returns>Заданный цвет</returns>
+    public JewelsEnum SetRandomColor()
     {
-        jewel = (JewelsEnum)UnityEngine.Random.Range(1, Enum.GetNames(typeof(JewelsEnum)).Length);
+        Jewel = (JewelsEnum)UnityEngine.Random.Range(1, Enum.GetNames(typeof(JewelsEnum)).Length);
+        return Jewel;
     }
 
+    /// <summary>
+    /// Обновить текстуру фишки. Вызывается при смене типа фишки
+    /// </summary>
     public void UpdateJewel()
     {
-        switch (jewel)
+        switch (Jewel)
         {
             case JewelsEnum.None:
                 _render.sprite = null;

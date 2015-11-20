@@ -2,6 +2,9 @@
 using System;
 using System.Collections;
 
+/// <summary>
+/// Контроллер. Обрабатывает нажатие на фишку
+/// </summary>
 public class Controller : MonoBehaviour {
     Piece _firstClick = null;
     Board _board;

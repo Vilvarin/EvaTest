@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// Хранилище текстур фишек
+/// </summary>
 public class JewelsStorage : MonoBehaviour
 {
     public static JewelsStorage instance;
