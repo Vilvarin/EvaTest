@@ -30,7 +30,7 @@ public class Controller : MonoBehaviour {
         else if(Board.CheckForSwap(_firstClick, e.Value) && _firstClick != e.Value)
         {
             _firstClick.RemoveSelected();
-            _board.Swap(_firstClick, e.Value);
+            StartCoroutine(_board.Swap(_firstClick, e.Value));
             _firstClick = null;
         }
         else

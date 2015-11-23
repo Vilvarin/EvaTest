@@ -74,6 +74,8 @@
     <Compile Include="Assets\Game\Scripts\Controller.cs" />
     <Compile Include="Assets\Game\Scripts\JewelsEnum.cs" />
     <Compile Include="Assets\Game\Scripts\JewelsStorage.cs" />
+    <Compile Include="Assets\Game\Scripts\Jewels.cs" />
+    <Compile Include="Assets\Game\Scripts\AnimationController.cs" />
     <Compile Include="Assets\Game\Scripts\PiecesEventArgs.cs" />
     <Compile Include="Assets\Game\Scripts\Piece.cs" />
     <Compile Include="Assets\UnityTestTools\Assertions\AssertionComponent.cs" />
