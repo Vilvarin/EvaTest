@@ -83,7 +83,6 @@ public class AnimationController : MonoBehaviour
         {
             piece.transform.Translate(0, _height, 0);
             piece.OffTransperency();
-            piece.Jewel = Jewels.GetRandomColor();
             StartCoroutine(piece.Move(fillTime));
         }
 

@@ -26,9 +26,23 @@ public class Board : MonoBehaviour
     /// </summary>
     public Transform cam;
 
+    public event EventHandler<EventArgs> endOfCycle = delegate { };
+    public event EventHandler<ScoreEventArgs> addPoints = delegate { }; 
+
     Piece[,] _grid;
 
     Transform _transform;
+
+    int _score = 0;
+    public int Score
+    {
+        get { return _score; }
+        set 
+        { 
+            _score += value; 
+            addPoints(this, new ScoreEventArgs(_score)); 
+        }
+    }
 
     #endregion
 
@@ -79,8 +93,10 @@ public class Board : MonoBehaviour
             AddNewPieces(secondRemoved);
             yield return StartCoroutine(AnimationController.instance.FillingAnimation());
 
-            yield return StartCoroutine(StartCyrcle());
+            yield return StartCoroutine(StartCycle());
         }
+
+        endOfCycle(this, new EventArgs());
     }
 
     /// <summary>
@@ -215,7 +231,7 @@ public class Board : MonoBehaviour
     /// <summary>
     /// Цикл поиска и удаления возникающих на поле линий
     /// </summary>
-    IEnumerator StartCyrcle()
+    IEnumerator StartCycle()
     {
         while (true)
         {
@@ -232,7 +248,9 @@ public class Board : MonoBehaviour
                 yield return StartCoroutine(AnimationController.instance.FillingAnimation());
             }
             else
+            {
                 yield break;
+            }
         }
     }
 
@@ -242,6 +260,8 @@ public class Board : MonoBehaviour
 
         foreach (List<Piece> match in matches)
         {
+            Score = match.Count * 50;
+
             foreach (Piece piece in match)
             {
                 AnimationController.instance.AddRemoved(piece);
@@ -277,6 +297,7 @@ public class Board : MonoBehaviour
     {
         foreach (Piece piece in list)
         {
+            piece.SetRandomColor();
             AnimationController.instance.AddFilled(piece);
         }
     }
@@ -290,7 +311,7 @@ public class Board : MonoBehaviour
         _grid = new Piece[width, height];
         InitBoard();
         CenterCamera();
-        AnimationController.instance.SetHeight(height);
+        
 	}
 	
     void Start()
@@ -298,6 +319,7 @@ public class Board : MonoBehaviour
         SetFirstTurn();
         FillingPieces();
         CheckForMatches();
+        AnimationController.instance.SetHeight(height);
     }
 
     /// <summary>

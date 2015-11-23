@@ -7,6 +7,8 @@ using System.Collections;
 /// </summary>
 public class Piece: MonoBehaviour
 {
+    public GameObject selectionPrefab;
+
     /// <summary>
     /// Координаты фишки на игровом поле
     /// </summary>
@@ -34,12 +36,21 @@ public class Piece: MonoBehaviour
 
     SpriteRenderer _render;
     Transform _transform;
+    GameObject _selection;
 
     void Awake()
     {
         _render = GetComponent<SpriteRenderer>();
         _transform = GetComponent<Transform>();
         _render.sprite = null;
+    }
+
+    void Start()
+    {
+        _selection = Instantiate(selectionPrefab);
+        _selection.transform.SetParent(_transform);
+        _selection.transform.localPosition = Vector3.zero;
+        RemoveSelected();
     }
 
     void OnMouseDown()
@@ -52,6 +63,7 @@ public class Piece: MonoBehaviour
     /// </summary>
     public void AddSelected()
     {
+        _selection.SetActive(true);
         _render.color = new Color(_render.color.r, _render.color.g, _render.color.b, 0.5f);
     }
 
@@ -60,7 +72,8 @@ public class Piece: MonoBehaviour
     /// </summary>
     public void RemoveSelected()
     {
-        _render.color = new Color(_render.color.r, _render.color.g, _render.color.b, 1f);
+        _selection.SetActive(false);
+        _render.color = new Color(_render.color.r, _render.color.g, _render.color.b, 1);
     }
 
     /// <summary>
