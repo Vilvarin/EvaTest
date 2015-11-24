@@ -26,7 +26,13 @@ public class Board : MonoBehaviour
     /// </summary>
     public Transform cam;
 
+    /// <summary>
+    /// Событие, вызываемое при окончании всех проходов игрового цикла
+    /// </summary>
     public event EventHandler<EventArgs> endOfCycle = delegate { };
+    /// <summary>
+    /// Событие, вызываемое при добавлении очков
+    /// </summary>
     public event EventHandler<ScoreEventArgs> addPoints = delegate { }; 
 
     Piece[,] _grid;
@@ -34,6 +40,9 @@ public class Board : MonoBehaviour
     Transform _transform;
 
     int _score = 0;
+    /// <summary>
+    /// Игровой счет
+    /// </summary>
     public int Score
     {
         get { return _score; }
@@ -519,7 +528,7 @@ public class Board : MonoBehaviour
     /// </summary>
     /// <param name="origin">первая фишка</param>
     /// <param name="compared">координаты второй фишки относительно первой</param>
-    /// <returns></returns>
+    /// <returns>true если фишка на поле</returns>
     bool CheckPieceOnBoard(Piece origin, Vector2 compared)
     {
         if (origin.coor.x + compared.x < 0 ||

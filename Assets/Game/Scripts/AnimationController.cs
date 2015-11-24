@@ -3,16 +3,21 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+/// <summary>
+/// Контроллирует порядок анимаций. Одиночка
+/// </summary>
 public class AnimationController : MonoBehaviour
 {
     public static AnimationController instance;
 
+    //Высота игрового поля
     int _height = 8;
     public void SetHeight(int h)
     {
         _height = h;
     }
 
+    //Обмен фишками
     public float swapTime = 1;
     List<Piece> _swapAnimation = new List<Piece>();
     public void AddSwaped(Piece piece)
@@ -20,6 +25,7 @@ public class AnimationController : MonoBehaviour
         _swapAnimation.Add(piece);
     }
 
+    //Удаление
     public float removeTime = 1;
     List<Piece> _removeAnimation = new List<Piece>();
     public void AddRemoved(Piece piece)
@@ -27,6 +33,7 @@ public class AnimationController : MonoBehaviour
         _removeAnimation.Add(piece);
     }
 
+    //Падение
     public float letDownTime = 1;
     List<Piece> _letDownAnimation = new List<Piece>();
     public void AddFalled(Piece piece)
@@ -34,6 +41,7 @@ public class AnimationController : MonoBehaviour
         _letDownAnimation.Add(piece);
     }
 
+    //Появление новых фишек
     public float fillTime = 1;
     List<Piece> _fillingAnimation = new List<Piece>();
     public void AddFilled(Piece piece)
@@ -41,6 +49,10 @@ public class AnimationController : MonoBehaviour
         _fillingAnimation.Add(piece);
     }
 
+    /// <summary>
+    /// Запуск анимации обмена
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator SwapAnimation()
     {
         foreach (Piece piece in _swapAnimation)
@@ -53,6 +65,10 @@ public class AnimationController : MonoBehaviour
         yield return new WaitForSeconds(swapTime);
     }
 
+    /// <summary>
+    /// запуск анимации удаления
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator RemoveAnimation()
     {
         foreach (Piece piece in _removeAnimation)
@@ -65,6 +81,10 @@ public class AnimationController : MonoBehaviour
         yield return new WaitForSeconds(removeTime);
     }
 
+    /// <summary>
+    /// Запуск анимации падения
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator LetDownAnimation()
     {
         foreach (Piece piece in _letDownAnimation)
@@ -77,6 +97,10 @@ public class AnimationController : MonoBehaviour
         yield return new WaitForSeconds(letDownTime);
     }
 
+    /// <summary>
+    /// Запуск анимации появления фишек
+    /// </summary>
+    /// <returns></returns>
     public IEnumerator FillingAnimation()
     {
         foreach (Piece piece in _fillingAnimation)

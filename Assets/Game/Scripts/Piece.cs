@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 
 /// <summary>
-/// Класс фишки\тайла игрового поля
+/// Класс фишки игрового поля
 /// </summary>
 public class Piece: MonoBehaviour
 {
@@ -58,28 +58,18 @@ public class Piece: MonoBehaviour
         clickAction(this, new PiecesEventArgs(this));
     }
 
-    /// <summary>
-    /// Выделяет фишку при нажатии
-    /// </summary>
     public void AddSelected()
     {
         _selection.SetActive(true);
         _render.color = new Color(_render.color.r, _render.color.g, _render.color.b, 0.5f);
     }
 
-    /// <summary>
-    /// убирает выделение
-    /// </summary>
     public void RemoveSelected()
     {
         _selection.SetActive(false);
         _render.color = new Color(_render.color.r, _render.color.g, _render.color.b, 1);
     }
 
-    /// <summary>
-    /// Задает случайный цвет
-    /// </summary>
-    /// <returns>Заданный цвет</returns>
     public JewelsEnum SetRandomColor()
     {
         Jewel = (JewelsEnum)UnityEngine.Random.Range(1, Enum.GetNames(typeof(JewelsEnum)).Length);
@@ -89,7 +79,7 @@ public class Piece: MonoBehaviour
     /// <summary>
     /// Обновить текстуру фишки. Вызывается при смене типа фишки
     /// </summary>
-    public void UpdateJewel()
+    void UpdateJewel()
     {
         switch (Jewel)
         {
@@ -130,6 +120,11 @@ public class Piece: MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Анимация движения
+    /// </summary>
+    /// <param name="time">Время анимации</param>
+    /// <returns>Сопрограмма</returns>
     public IEnumerator Move(float time)
     {
         Vector3 start = _transform.position;
@@ -144,6 +139,11 @@ public class Piece: MonoBehaviour
         _transform.position = end;
     }
 
+    /// <summary>
+    /// Анимация удаления
+    /// </summary>
+    /// <param name="time">Время исчезновения</param>
+    /// <returns>Сопрограмма</returns>
     public IEnumerator Remove(float time)
     {
         Color start = _render.color;
@@ -159,6 +159,9 @@ public class Piece: MonoBehaviour
         Jewel = JewelsEnum.None;
     }
 
+    /// <summary>
+    /// Убрать прозрачность
+    /// </summary>
     public void OffTransperency()
     {
         _render.color = new Color(_render.color.r, _render.color.g, _render.color.b, 1);

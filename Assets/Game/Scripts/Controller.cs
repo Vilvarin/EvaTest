@@ -23,6 +23,9 @@ public class Controller : MonoBehaviour {
         _board.endOfCycle += _board_endOfCycle;
     }
 
+    /// <summary>
+    /// блокировка нажатия на фишку
+    /// </summary>
     void _board_endOfCycle(object sender, EventArgs e)
     {
         _locked = false;
